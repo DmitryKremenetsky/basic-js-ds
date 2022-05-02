@@ -81,7 +81,7 @@ class BinarySearchTree {
   }
 
   remove(data) {
-    this.root = removeNode(this.root, data)
+    this.rootTree = removeNode(this.rootTree, data)
 
     function removeNode(node, data) {
       if (!node) {
@@ -108,6 +108,17 @@ class BinarySearchTree {
           node = node.left;
           return node
         }
+
+        let minFromRight = node.right;
+        while(minFromRight.left) {
+          minFromRight = minFromRight.left;
+        }
+
+        node.data = minFromRight.data
+
+        node.right = removeNode(node.right, minFromRight.data);
+
+        return node
       }
     }
   }
